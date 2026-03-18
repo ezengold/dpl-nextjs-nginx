@@ -37,3 +37,4 @@ next-env.d.ts
 
 infra/certs/*
 !infra/certs/README.md
+infra/kuber/stg-secret.yaml

@@ -19,7 +19,7 @@ export function Shop() {
 	});
 
 	const handleInputChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
 		const { name, value } = e.target;
 		setNewProduct((prev) => ({ ...prev, [name]: value }));
@@ -51,10 +51,12 @@ export function Shop() {
 			<header
 				className={cn(
 					"w-full bg-[rgb(var(--foreground),0.03)] border-b",
-					"dark:border-[rgb(var(--foreground),0.1)] p-10 pt-20"
+					"dark:border-[rgb(var(--foreground),0.1)] p-10 pt-20",
 				)}
 			>
-				<h1 className="text-4xl font-bold">MyShop</h1>
+				<h1 className="text-4xl font-bold">
+					{process.env.NEXT_PUBLIC_APP_NAME}
+				</h1>
 			</header>
 
 			<main className="flex flex-col gap-8 p-10">
@@ -62,13 +64,13 @@ export function Shop() {
 				<section
 					className={cn(
 						"p-4 border dark:border-[rgb(var(--foreground),0.1)] rounded-lg",
-						"pt-8 shadow-md relative"
+						"pt-8 shadow-md relative",
 					)}
 				>
 					<h2
 						className={cn(
 							"font-bold px-3 absolute -top-5 h-10 left-5 flex items-center justify-center",
-							"rounded-md bg-sky-700 text-white dark:bg-slate-700"
+							"rounded-md bg-sky-700 text-white dark:bg-slate-700",
 						)}
 					>
 						Add New Product
@@ -93,7 +95,7 @@ export function Shop() {
 						<button
 							onClick={handleAddProduct}
 							className={cn(
-								"p-2 rounded-md bg-[rgb(var(--foreground),0.05)] hover:bg-[rgb(var(--foreground),0.07)]"
+								"p-2 rounded-md bg-[rgb(var(--foreground),0.05)] hover:bg-[rgb(var(--foreground),0.07)]",
 							)}
 						>
 							Add Product
@@ -105,7 +107,7 @@ export function Shop() {
 				<section
 					className={cn(
 						"p-4 border rounded-lg shadow-md",
-						"dark:border-[rgb(var(--foreground),0.1)]"
+						"dark:border-[rgb(var(--foreground),0.1)]",
 					)}
 				>
 					<h2 className="text-xl font-semibold mb-4">Product List</h2>
@@ -120,7 +122,7 @@ export function Shop() {
 									key={product.id}
 									className={cn(
 										"p-4 border rounded-lg flex justify-between items-center",
-										"dark:border-[rgb(var(--foreground),0.1)]"
+										"dark:border-[rgb(var(--foreground),0.1)]",
 									)}
 								>
 									<div>

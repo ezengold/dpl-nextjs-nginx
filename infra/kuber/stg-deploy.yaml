@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nxkubr-config
+  labels:
+    app: nxkubr
+data:
+  APP_NAME: "Ezen's Shop"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nxkubr-deployment
+  labels:
+    app: nxkubr
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nxkubr
+  template:
+    metadata:
+      labels:
+        app: nxkubr
+    spec:
+      imagePullSecrets:
+        - name: nxkubr-secret
+      containers:
+        - name: nxkubr
+          image: ezengold/eng-training:v1.0
+          env:
+            - name: NEXT_PUBLIC_APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: nxkubr-config
+                  key: APP_NAME
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          ports:
+            - containerPort: 3000
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nxkubr-service
+spec:
+  selector:
+    app: nxkubr
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

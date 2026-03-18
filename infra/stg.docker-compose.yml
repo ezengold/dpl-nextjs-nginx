@@ -1,32 +1,9 @@
 services:
   webapp:
-    container_name: nextjs-kubr
+    container_name: nxkubr
     build:
       context: ../
       dockerfile: ./infra/docker/stg.dockerfile
     ports:
-      - "3000:3000"
-    expose:
-      - 3000
+      - "80:3000"
     restart: unless-stopped
-
-  nginx:
-    image: nginx:latest
-    container_name: nextjs-kubr-server
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./certs:/etc/nginx/certs:rw
-    depends_on:
-      - webapp
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certs:/etc/letsencrypt
-      - ./nginx/.well-known:/var/www/certbot
-    entrypoint: >
-      sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot --email noudekiki@gmail.com --agree-tos --no-eff-email -d nextjskubr.ezen.com"
